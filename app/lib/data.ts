@@ -166,6 +166,7 @@ export async function fetchInvoiceById(id: string) {
       // Convert amount from cents to dollars
       amount: invoice.amount / 100,
     }));
+    console.log("发票信息--", invoice);
 
     return invoice[0];
   } catch (error) {
