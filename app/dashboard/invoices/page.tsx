@@ -10,13 +10,15 @@ import { fetchInvoicesPages } from "@/app/lib/data";
 export default async function Page({
   searchParams,
 }: {
-  searchParams: {
-    query?: string;
-    page?: string;
-  };
+  searchParams: Promise<{
+    query?: string | undefined;
+    page?: string | number | undefined;
+  }>;
 }) {
-  const query = searchParams?.query || "";
-  const currentPage = Number(searchParams?.page) || 1;
+  const searchParamObj = await searchParams;
+  const { query = "", page: currentPage = 1 } = await searchParams;
+  // const query = searchParamObj?.query || "";
+  // const currentPage = Number(searchParamObj?.page) || 1;
   const totalPages = await fetchInvoicesPages(query);
   return (
     <div className="w-full">
@@ -28,7 +30,7 @@ export default async function Page({
         <CreateInvoice />
       </div>
       <Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}>
-        <Table query={query} currentPage={currentPage} />
+        <Table query={query} currentPage={Number(currentPage)} />
       </Suspense>
       <div className="mt-5 flex w-full justify-center">
         <Pagination totalPages={totalPages} />

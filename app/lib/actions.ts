@@ -129,13 +129,6 @@ export async function updateInvoice(
   redirect("/dashboard/invoices");
 }
 export async function deleteInvoice(id: string) {
-  try {
-    await sql`DELETE FROM invoices WHERE id = ${id}`;
-    revalidatePath("/dashboard/invoices");
-  } catch (error) {
-    console.error(error);
-    return {
-      message: `数据库错误：删除发票失败--${error}`,
-    };
-  }
+  await sql`DELETE FROM invoices WHERE id = ${id}`;
+  revalidatePath("/dashboard/invoices");
 }
