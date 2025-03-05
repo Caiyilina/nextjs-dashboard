@@ -1,5 +1,3 @@
-import { lusitana } from "@/app/ui/fonts";
-import Search from "@/app/ui/search";
 import { CustomersTableSkeleton } from "@/app/ui/skeletons";
 import Table from "@/app/ui/customers/table";
 import { Metadata } from "next";
